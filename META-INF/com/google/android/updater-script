@@ -1,0 +1,9 @@
+ui_print("Flasher by git@zuri1503");
+ui_print("Your device: " + getprop("ro.product.device"));
+getprop("ro.product.device") == "DEVICE1" || getprop("ro.product.device") == "DEVICE2" || abort("Compatible devices: DEVICE1, DEVICE2");
+
+ui_print("Flashing firmware partitions...");
+extract_raw("images/boot.img", "/dev/block/bootdevice/by-name/boot") || abort("Failed to flash boot!");
+
+ui_print("Flashing super partition...");
+extract_sparse("images/super.img", "/dev/block/bootdevice/by-name/super") || abort("Failed to flash super!");
